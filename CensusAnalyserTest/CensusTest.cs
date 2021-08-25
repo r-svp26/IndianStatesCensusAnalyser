@@ -16,6 +16,8 @@ namespace CensusAnalyserTest
         string indianStateCodeFilePath = @"V:\BridgeLabz\IndianStatesCensusAnalyser\CensusAnalyserTest\CSVFiles\IndiaStateCode.csv";
         string wrongIndianStateCensusFilePath = @"V:\BridgeLabz\IndianStatesCensusAnalyser\CensusAnalyserTest\CSVFiles\IndiaData.csv";
         string wrongIndianStateCodeFilePath = @"V:\BridgeLabz\IndianStatesCensusAnalyser\CensusAnalyserTest\CSVFiles\IndiaCode.csv";
+        string wrongIndianStateCensusFiletype = @"V:\BridgeLabz\IndianStatesCensusAnalyser\CensusAnalyserTest\CSVFiles\IndiaStateCensusData.txt";
+        string wrongIndianStateCodeFiletype = @"V:\BridgeLabz\IndianStatesCensusAnalyser\CensusAnalyserTest\CSVFiles\IndiaStateCode.txt";
 
         CensusAnalyser censusAnalyser;
         Dictionary<string, CensusDTO> totalRecord;
@@ -48,6 +50,17 @@ namespace CensusAnalyserTest
             var stateException = Assert.Throws<CensusAnalyserException>(() => censusAnalyser.LoadCensusData(CensusAnalyser.Country.INDIA, wrongIndianStateCodeFilePath, indianStateCodeHeaders));
             Assert.AreEqual(CensusAnalyserException.ExceptionType.FILE_NOT_FOUND, censusException.type);
             Assert.AreEqual(CensusAnalyserException.ExceptionType.FILE_NOT_FOUND, stateException.type);
+        }
+        /// <summary>
+        /// TC-1.3
+        /// </summary>
+        [Test]
+        public void GivenWrongIndianCensusDataFileType_WhenReaded_ShouldReturnCustomException()
+        {
+            var censusException = Assert.Throws<CensusAnalyserException>(() => censusAnalyser.LoadCensusData(CensusAnalyser.Country.INDIA, wrongIndianStateCensusFiletype, indianStateCensusHeaders));
+            var stateException = Assert.Throws<CensusAnalyserException>(() => censusAnalyser.LoadCensusData(CensusAnalyser.Country.INDIA, wrongIndianStateCodeFiletype, indianStateCodeHeaders));
+            Assert.AreEqual(CensusAnalyserException.ExceptionType.INVALID_FILE_TYPE, censusException.type);
+            Assert.AreEqual(CensusAnalyserException.ExceptionType.INVALID_FILE_TYPE, stateException.type);
         }
     }
 }
