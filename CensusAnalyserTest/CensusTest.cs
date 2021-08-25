@@ -20,6 +20,8 @@ namespace CensusAnalyserTest
         string wrongIndianStateCodeFiletype = @"V:\BridgeLabz\IndianStatesCensusAnalyser\CensusAnalyserTest\CSVFiles\IndiaStateCode.txt";
         string wrongIndianStateCensusFileDelimiter = @"V:\BridgeLabz\IndianStatesCensusAnalyser\CensusAnalyserTest\CSVFiles\DelimiterIndiaStateCensusData.csv";
         string wrongIndianStateCodeFileDelimeter = @"V:\BridgeLabz\IndianStatesCensusAnalyser\CensusAnalyserTest\CSVFiles\DelimiterIndiaStateCode.csv";
+        string wrongIndianStateCensusHeaders = "State,Population,AreaInSqKm,DensityPerSqKm,Rank";
+        string wrongIndianStateCodeHeaders = "SrNo,State Name,TIN,StateCode,Popularity";
 
         CensusAnalyser censusAnalyser;
         Dictionary<string, CensusDTO> totalRecord;
@@ -74,6 +76,17 @@ namespace CensusAnalyserTest
             var stateException = Assert.Throws<CensusAnalyserException>(() => censusAnalyser.LoadCensusData(CensusAnalyser.Country.INDIA, wrongIndianStateCodeFileDelimeter, indianStateCodeHeaders));
             Assert.AreEqual(CensusAnalyserException.ExceptionType.INCORRECT_DELIMITER, censusException.type);
             Assert.AreEqual(CensusAnalyserException.ExceptionType.INCORRECT_DELIMITER, stateException.type);
+        }
+        /// <summary>
+        /// TC-1.5
+        /// </summary>
+        [Test]
+        public void GivenIndianCensusDataFileNotProperHeader_WhenReaded_ShouldReturnCustomException()
+        {
+            var censusException = Assert.Throws<CensusAnalyserException>(() => censusAnalyser.LoadCensusData(CensusAnalyser.Country.INDIA, wrongIndianStateCensusFileDelimiter, wrongIndianStateCensusHeaders));
+            var stateException = Assert.Throws<CensusAnalyserException>(() => censusAnalyser.LoadCensusData(CensusAnalyser.Country.INDIA, wrongIndianStateCodeFileDelimeter, wrongIndianStateCodeHeaders));
+            Assert.AreEqual(CensusAnalyserException.ExceptionType.INCORRECT_HEADER, censusException.type);
+            Assert.AreEqual(CensusAnalyserException.ExceptionType.INCORRECT_HEADER, stateException.type);
         }
     }
 }
