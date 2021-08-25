@@ -2,7 +2,10 @@
 
 namespace IndianStatesCensusAnalyser
 {
-    class Program
+    /// <summary>
+    /// main class
+    /// </summary>
+    public class Program
     {
         /// <summary>
         /// main method
