@@ -105,5 +105,14 @@ namespace CensusAnalyserTest
             var stateException = Assert.Throws<CensusAnalyserException>(() => censusAnalyser.LoadCensusData(CensusAnalyser.Country.INDIA, wrongIndianStateCodeFiletype, indianStateCodeHeaders));
             Assert.AreEqual(CensusAnalyserException.ExceptionType.INVALID_FILE_TYPE, stateException.type);
         }
+        /// <summary>
+        /// TC 2.4 delimeter is not proper
+        /// </summary>
+        [Test]
+        public void GivenWrongStateCodeDataFileNotProperDelimeter_WhenReaded_ShouldReturnCustomException()
+        {
+            var stateException = Assert.Throws<CensusAnalyserException>(() => censusAnalyser.LoadCensusData(CensusAnalyser.Country.INDIA, wrongIndianStateCodeFileDelimeter, indianStateCodeHeaders));
+            Assert.AreEqual(CensusAnalyserException.ExceptionType.INCORRECT_DELIMITER, stateException.type);
+        }
     }
 }
