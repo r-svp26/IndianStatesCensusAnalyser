@@ -88,5 +88,14 @@ namespace CensusAnalyserTest
             Assert.AreEqual(CensusAnalyserException.ExceptionType.INCORRECT_HEADER, censusException.type);
             Assert.AreEqual(CensusAnalyserException.ExceptionType.INCORRECT_HEADER, stateException.type);
         }
+        /// <summary>
+        /// TC 2.1
+        /// </summary>
+        [Test]
+        public void GivenStateCodeDataFile_WhenReaded_ShouldReturnStateCodeCount()
+        {
+            stateRecord = censusAnalyser.LoadCensusData(CensusAnalyser.Country.INDIA, indianStateCodeFilePath, indianStateCodeHeaders);
+            Assert.AreEqual(37, stateRecord.Count);
+        }
     }
 }
